@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternating Boxes</title>
+    <style>
+        /* ตั้งค่าพื้นหลังของหน้า */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgb(70, 70, 70); /* พื้นหลังสีเทา */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* ทำให้เต็มหน้าจอ */
+        }
+
+        /* สไตล์ของหน้าต่างหลัก */
+        .ui-window {
+            width: 40%;
+            height: auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5); /* โปร่งใส 50% */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+            border-radius: 10px; /* ทำมุมโค้ง */
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+        }
+
+        /* กล่องสำหรับแต่ละแถว */
+        /* กล่องสำหรับแต่ละแถว */
+        .row {
+            display: flex;
+            flex-direction: column; /* จัดกล่องเรียงจากบนลงล่าง */
+            align-items: center; /* จัดตำแหน่งกล่องให้อยู่ตรงกลาง */
+            gap: 20px;
+        }
+
+
+        /* กล่องตัวเลือก */
+        .box {
+            width: 300px; /* กำหนดความกว้างของกล่อง */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* สีฟ้า */
+            color: black;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .box:hover {
+            background-color: rgba(206, 206, 206, 0.9); /* สีเข้มขึ้นเมื่อ hover */
+            transform: scale(1.05); /* ขยายขนาด 5% */
+            transition: transform 0.3s ease; /* ทำให้การเปลี่ยนแปลงนุ่มนวล */
+
+        }
+    </style>
+</head>
+<body>
+    <div class="ui-window">
+        <h1>อยากเรียนเรื่องอะไรล่ะเดี๋ยวสอนเองเด้อสู</h1>
+        <p>เลือกมาหัวข้อนึงสิหลานเอ้ย</p>
+        
+        <!-- แถวกล่องตัวเลือก -->
+        <div class="row">
+            <div class="box">ตรรกศาสตร์</div>
+            <div class="box">เลขฐาน</div>
+            <div class="box">การดำเนินการทางบิตไวส์</div>
+            <div class="box" onclick="window.location.href='website.html'">ไอแก่แพ่มไรวะ</div>
+        </div>
+    </div>
+</body>
+</html>
