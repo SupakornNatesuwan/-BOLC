@@ -1,2 +1,2 @@
 Simple Bitwise Operation learning.
-https://SupakornNatesuwan.github.io/-BOLC/
+https://supakornnatesuwan.github.io/-BOLC/index.html
