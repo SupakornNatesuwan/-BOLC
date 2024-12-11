@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอ */
         }
 
         .container {
@@ -24,11 +25,13 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             position: relative;
+            overflow-y: auto; /* ทำให้เนื้อหาที่ยาวเกินสามารถเลื่อนขึ้นลงได้ */
+            max-height: 90vh; /* จำกัดความสูงของ container */
         }
 
         /* ปุ่มกากบาท */
         .close-btn {
-            position: absolute;
+            position: fixed;
             top: 10px;
             right: 10px;
             font-size: 2em;
@@ -37,6 +40,7 @@
             background: none;
             border: none;
             transition: color 0.3s;
+            z-index: 10; /* ให้ปุ่ม "X" อยู่เหนือเนื้อหาทั้งหมด */
         }
 
         .close-btn:hover {
@@ -145,6 +149,25 @@
             align-items: center;
         }
 
+        /* ทำให้ปุ่ม "X" อยู่เหนือเนื้อหา */
+        .close-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+            color: black;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        /* ทำให้แน่ใจว่า container มีขนาดที่พอเหมาะ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                width: 95%;
+                max-height: 80vh;
+            }
+        }
     </style>
 </head>
 <body>
