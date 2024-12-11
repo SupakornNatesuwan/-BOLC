@@ -42,18 +42,14 @@
             font-size: 2em;
             color: black;
             cursor: pointer;
-            z-index: 100;
             background: none;
-            border: 2px solid transparent; /* Invisible border by default */
-            padding: 5px;
-            border-radius: 50%; /* Circular shape */
-            transition: background 0.3s, border-color 0.3s;
+            border: none;
+            transition: color 0.3s;
+            z-index: 10; /* ให้ปุ่ม "X" อยู่เหนือเนื้อหาทั้งหมด */
         }
 
         .close-btn:hover {
-            background-color: black; /* Black background when hovered */
-            color: white; /* Change text color to white */
-            border-color: black; /* Show a black border */
+            color: red;
         }
 
         /* Question text styling */
