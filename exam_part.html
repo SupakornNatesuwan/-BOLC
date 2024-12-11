@@ -36,19 +36,24 @@
 
         /* Close button styling */
         .close-btn {
-            position: relative;
+            position: fixed;
+            top: 10px;
+            right: 10px;
             font-size: 2em;
             color: black;
             cursor: pointer;
+            z-index: 100;
             background: none;
-            border: none;
-            transition: color 0.3s;
-            margin-left: auto; /* ทำให้ปุ่มอยู่ทางขวา */
-            margin-top: -10px; /* ปรับให้ปุ่มชิดกับขอบบน */
+            border: 2px solid transparent; /* Invisible border by default */
+            padding: 5px;
+            border-radius: 50%; /* Circular shape */
+            transition: background 0.3s, border-color 0.3s;
         }
 
         .close-btn:hover {
-            color: red;
+            background-color: black; /* Black background when hovered */
+            color: white; /* Change text color to white */
+            border-color: black; /* Show a black border */
         }
 
         /* Question text styling */
