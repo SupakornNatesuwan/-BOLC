@@ -26,8 +26,9 @@
             border-radius: 10px; /* ทำมุมโค้ง */
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 20px;
             align-items: center;
+            text-align: center;
         }
 
         /* กล่องสำหรับแต่ละแถว */
@@ -41,20 +42,34 @@
         /* กล่องตัวเลือก */
         .box {
             width: 300px; /* กำหนดความกว้างของกล่อง */
-            padding: 20px;
+            max-width: 90%;
+            padding: 15px 20px;
             background-color: rgba(255, 255, 255, 0.8); /* สีฟ้า */
             color: black;
             border-radius: 10px;
             text-align: center;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .box:hover {
             background-color: rgba(206, 206, 206, 0.9); /* สีเข้มขึ้นเมื่อ hover */
             transform: scale(1.05); /* ขยายขนาด 5% */
-            transition: transform 0.3s ease; /* ทำให้การเปลี่ยนแปลงนุ่มนวล */
+        }
+
+        /* ปรับ UI สำหรับหน้าจอขนาดเล็ก */
+        @media screen and (max-width: 600px) {
+            .ui-window {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .box {
+                width: 100%;
+                padding: 15px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -62,7 +77,7 @@
     <div class="ui-window">
         <h1>รู้จักบิตไวส์บ่สู</h1>
         <p>ตอบมาไอหนู</p>
-        
+
         <!-- แถวกล่องตัวเลือก -->
         <div class="row">
             <div class="box">รู้ดิ โคตรง่าย</div>
