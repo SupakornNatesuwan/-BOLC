@@ -5,59 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alternating Boxes</title>
     <style>
-        /* ตั้งค่าพื้นหลังของหน้า */
+        /* Global styles */
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: rgb(70, 70, 70); /* พื้นหลังสีเทา */
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8; /* Soft background color */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* ทำให้เต็มหน้าจอ */
+            height: 100vh;
+            min-height: 100vh;
+            padding: 0 10px;
         }
 
-        /* สไตล์ของหน้าต่างหลัก */
+        /* Main container style */
         .ui-window {
-            width: 40%;
-            height: auto;
+            width: 100%;
+            max-width: 400px;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.5); /* โปร่งใส 50% */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
-            border-radius: 10px; /* ทำมุมโค้ง */
+            background-color: rgba(255, 255, 255, 0.9); /* Light background with slight transparency */
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
             align-items: center;
+            position: relative;
+            text-align: center;
         }
 
-        /* กล่องสำหรับแต่ละแถว */
-        /* กล่องสำหรับแต่ละแถว */
+        /* Close button style */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ff4f4f; /* Change color to red on hover */
+        }
+
+        /* Header and description styling */
+        h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Box container */
         .row {
             display: flex;
-            flex-direction: column; /* จัดกล่องเรียงจากบนลงล่าง */
-            align-items: center; /* จัดตำแหน่งกล่องให้อยู่ตรงกลาง */
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
 
-
-        /* กล่องตัวเลือก */
+        /* Individual box styling */
         .box {
-            width: 300px; /* กำหนดความกว้างของกล่อง */
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* สีฟ้า */
-            color: black;
-            border-radius: 10px;
-            text-align: center;
+            width: 100%;
+            max-width: 320px;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
             font-size: 1.2em;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
         }
 
         .box:hover {
-            background-color: rgba(206, 206, 206, 0.9); /* สีเข้มขึ้นเมื่อ hover */
-            transform: scale(1.05); /* ขยายขนาด 5% */
-            transition: transform 0.3s ease; /* ทำให้การเปลี่ยนแปลงนุ่มนวล */
+            background-color: #0056b3; /* Darken the box color on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
 
+        .box:active {
+            transform: scale(0.98); /* Slightly shrink the box when clicked */
         }
 
         @media screen and (max-width: 600px) {
@@ -65,10 +99,7 @@
                 width: 90%;
                 padding: 15px;
             }
-
             .box {
-                width: 100%;
-                padding: 15px;
                 font-size: 1em;
             }
         }
@@ -76,15 +107,17 @@
 </head>
 <body>
     <div class="ui-window">
-        <h1>อยากเรียนเรื่องอะไรล่ะเดี๋ยวสอนเองเด้อสู</h1>
-        <p>เลือกมาหัวข้อนึงสิหลานเอ้ย</p>
-        
-        <!-- แถวกล่องตัวเลือก -->
+        <!-- Close button to go back to the homepage -->
+        <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+
+        <h1>โปรดเลือกหัวข้อที่ต้องการ</h1>
+        <p>เลือกบทเรียนเพื่อเริ่มเรียนรู้</p>
+
+        <!-- Box options -->
         <div class="row">
-            <div class="box">ตรรกศาสตร์</div>
-            <div class="box">เลขฐาน</div>
-            <div class="box">การดำเนินการทางบิตไวส์</div>
-            <div class="box" onclick="window.location.href='index.html'">ไอแก่แพ่มไรวะ</div>
+            <div class="box" onclick="window.location.href='logic.html'">ตรรกศาสตร์</div>
+            <div class="box" onclick="window.location.href='number_base.html'">เลขฐาน</div>
+            <div class="box" onclick="window.location.href='bitwise.html'">การดำเนินการทางบิตไวส์</div>
         </div>
     </div>
 </body>
