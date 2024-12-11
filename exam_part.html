@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitwise Game</title>
+    <style>
+        /* Global page styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif; /* Modern font */
+            background-color: #f0f4f8; /* Soft background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            min-height: 100vh;
+            padding: 0 15px;
+        }
+
+        /* Main window styling */
+        .ui-window {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            position: relative;
+            text-align: center;
+        }
+
+        /* Close button styling */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+            color: black;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+
+        /* Question text styling */
+        .question {
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        /* Answer button styling */
+        .answer-btn {
+            width: 120px;
+            padding: 12px;
+            margin: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            border: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .answer-btn:hover {
+            background-color: #45a049;
+        }
+
+        .answer-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Score display styling */
+        #score {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 600px) {
+            .ui-window {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .answer-btn {
+                width: 100%;
+                padding: 10px;
+                font-size: 1em;
+            }
+
+            .question {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ui-window">
+        <!-- Close button to go back to index.html -->
+        <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+
+        <h1>Bitwise Game</h1>
+        <p>ตอบผลลัพธ์ของการดำเนินการ bitwise ระหว่างสองค่าดังต่อไปนี้</p>
+
+        <!-- Game container with question and answer buttons -->
+        <div id="game-container">
+            <p class="question" id="question"></p>
+            <button class="answer-btn" id="answer-true">T</button>
+            <button class="answer-btn" id="answer-false">F</button>
+
+            <p id="score">คะแนน: 0</p>
+        </div>
+    </div>
+
+    <script>
+        // Game logic variables
+        let score = 0;
+        const operations = {
+            "OR": (a, b) => a | b,
+            "AND": (a, b) => a & b,
+            "XOR": (a, b) => a ^ b
+        };
+        const questionsCount = 5;
+        let questionIndex = 0;
+
+        // Function to generate new question
+        function generateQuestion() {
+            const a = Math.round(Math.random());
+            const b = Math.round(Math.random());
+            const operation = Object.keys(operations)[Math.floor(Math.random() * Object.keys(operations).length)];
+            const correctAnswer = operations[operation](a, b) === 1 ? "T" : "F";
+
+            // Display the question
+            document.getElementById("question").innerText = `A = ${a === 1 ? "T" : "F"} และ B = ${b === 1 ? "T" : "F"}\nA ${operation} B = ?`;
+
+            // Set correct answer logic
+            document.getElementById("answer-true").onclick = () => checkAnswer("T", correctAnswer);
+            document.getElementById("answer-false").onclick = () => checkAnswer("F", correctAnswer);
+        }
+
+        // Function to check if the answer is correct
+        function checkAnswer(userAnswer, correctAnswer) {
+            if (userAnswer === correctAnswer) {
+                score++;
+                alert("ถูกต้อง!");
+            } else {
+                alert(`ผิดแล้ว! คำตอบที่ถูกต้องคือ ${correctAnswer}`);
+            }
+            questionIndex++;
+            if (questionIndex < questionsCount) {
+                generateQuestion();
+            } else {
+                document.getElementById("game-container").innerHTML = `<p>คุณได้คะแนน ${score} จาก ${questionsCount}</p>`;
+            }
+            document.getElementById("score").innerText = `คะแนน: ${score}`;
+        }
+
+        // Initialize the game with the first question
+        generateQuestion();
+    </script>
+</body>
+</html>
