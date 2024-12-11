@@ -35,19 +35,24 @@
 
         /* Close button style */
         .close-btn {
-            position: absolute;
+            position: fixed;
             top: 10px;
             right: 10px;
             font-size: 2em;
-            color: #333;
-            background: none;
-            border: none;
+            color: black;
             cursor: pointer;
-            transition: color 0.3s;
+            z-index: 100;
+            background: none;
+            border: 2px solid transparent; /* Invisible border by default */
+            padding: 5px;
+            border-radius: 50%; /* Circular shape */
+            transition: background 0.3s, border-color 0.3s;
         }
 
         .close-btn:hover {
-            color: #ff4f4f; /* Change color to red on hover */
+            background-color: black; /* Black background when hovered */
+            color: white; /* Change text color to white */
+            border-color: black; /* Show a black border */
         }
 
         /* Header and description styling */
