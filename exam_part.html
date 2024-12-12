@@ -160,16 +160,40 @@
         let correctAnswers = 0;
         const questionsCount = 5;
         let questionIndex = 0;
+        let previousQuestions = [];
 
+        const operations = ['AND', 'OR', 'XOR']; // AND, OR, XOR
+
+        // ฟังก์ชันสุ่มคำถาม
         function generateQuestion() {
-            const a = Math.round(Math.random());
-            const b = Math.round(Math.random());
-            const correctAnswer = a | b;
-            document.getElementById("question").innerText = `A = ${a}, B = ${b} | A OR B = ?`;
+            let a, b, operation;
+            
+            // สุ่มเลข A และ B
+            a = Math.round(Math.random());
+            b = Math.round(Math.random());
+            
+            // สุ่ม operation จาก 3 operation
+            operation = operations[Math.floor(Math.random() * operations.length)];
+            
+            // คำนวณคำตอบ
+            let correctAnswer;
+            if (operation === 'AND') {
+                correctAnswer = a & b; // AND
+            } else if (operation === 'OR') {
+                correctAnswer = a | b; // OR
+            } else {
+                correctAnswer = a ^ b; // XOR
+            }
+
+            // สร้างคำถาม
+            document.getElementById("question").innerText = `A = ${a}, B = ${b} \n\nA ${operation} B = ?`;
+            
+            // ตั้งค่าการคลิกปุ่มตอบ
             document.getElementById("answer-1").onclick = () => checkAnswer(1, correctAnswer);
             document.getElementById("answer-0").onclick = () => checkAnswer(0, correctAnswer);
         }
 
+        // ฟังก์ชันตรวจสอบคำตอบ
         function checkAnswer(userAnswer, correctAnswer) {
             if (userAnswer === correctAnswer) {
                 score++;
@@ -183,10 +207,12 @@
                 let bloodWidth = (correctAnswers / questionsCount) * 100;
                 document.getElementById("blood-bar-b").style.width = `${bloodWidth}%`;
                 document.getElementById("blood-bar-b").style.backgroundColor = "red";
+            } else {
             }
+
             questionIndex++;
             if (questionIndex < questionsCount) {
-                generateQuestion();
+                generateQuestion(); // รีเฟรชคำถามใหม่หลังจากตอบ
             } else {
                 document.getElementById("game-container").innerHTML = `<p>คุณได้คะแนน ${score} จาก ${questionsCount}</p>`;
                 document.getElementById("battle-message").innerText = correctAnswers === questionsCount ? "คุณชนะแล้ว!" : "คุณแพ้แล้ว!";
@@ -194,7 +220,9 @@
             document.getElementById("score").innerText = `คะแนน: ${score}`;
         }
 
+        // เริ่มเกม
         generateQuestion();
+
     </script>
 </body>
 </html>
