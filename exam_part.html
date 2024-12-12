@@ -8,14 +8,18 @@
         /* Global page styles */
         body {
             margin: 0;
-            font-family: 'Roboto', sans-serif; /* Modern font */
-            background-color: #f0f4f8; /* Soft background */
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://i.pinimg.com/736x/0d/14/5c/0d145c616a8600c455169b7fa64580ce.jpg');
+            background-size: cover; /* ปรับภาพให้เต็มหน้าจอ */
+            background-position: center; /* จัดตำแหน่งภาพให้อยู่ตรงกลาง */
+            background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             min-height: 100vh;
             padding: 0 15px;
+            position: relative;
         }
 
         /* Main window styling */
@@ -24,7 +28,7 @@
             max-width: 500px;
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             display: flex;
             flex-direction: column;
@@ -45,7 +49,7 @@
             background: none;
             border: none;
             transition: color 0.3s;
-            z-index: 10; /* ให้ปุ่ม "X" อยู่เหนือเนื้อหาทั้งหมด */
+            z-index: 10;
         }
 
         .close-btn:hover {
@@ -88,6 +92,69 @@
             color: #333;
         }
 
+        /* A and B characters */
+        .character {
+            font-size: 4em;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .character-a {
+            color: #ff6347;
+            position: relative;
+            left: 0;
+        }
+
+        .character-b {
+            color: #4682b4;
+            position: relative;
+            right: 0;
+            transition: transform 1s ease-in-out;
+        }
+
+        .battle-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            width: 100%;
+            font-size: 3em;
+            text-align: center;
+            position: relative; 
+        }
+
+        /* B's blood when defeated */
+        .blood {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(90%);
+            margin-top: 10px; 
+        }
+
+        .blood-bar {
+            width: 100px;
+            height: 10px;
+            background-color: green;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .blood-bar-inner {
+            height: 100%;
+            width: 100%;
+            background-color: green;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+
+        /* Battle outcome message */
+        .battle-message {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #333;
+        }
+
         /* Responsive design */
         @media screen and (max-width: 600px) {
             .ui-window {
@@ -112,22 +179,40 @@
         <!-- Close button to go back to index.html -->
         <button class="close-btn" onclick="window.location.href='index.html'">×</button>
 
-        <h1>Bitwise Game</h1>
-        <p>ตอบผลลัพธ์ของการดำเนินการ bitwise ระหว่างสองค่าดังต่อไปนี้</p>
+        <h1>พบสัตว์ประหลาด!</h1>
+        <p>เราต้องจัดการเจ้าสัตว์ประหลาด!</p>
+
+        <!-- Battle area for A vs B -->
+        <div class="battle-area">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTd2aDFla3UzN2VyazhzN2g1ZWZ2d2g5eDd0aXR4YWpzYTR5end1diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/LaiiyXh4ZbSSKmsRMu/giphy.gif" class="character-a" alt="Character A" width="250" height="250" />
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3VvYzNpenVpYTYybW1udjJ3ZjI1OTVtY2U4a2xmdHRuZzN4NXlnaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/OYAnmv1sAeBkQ0bM0Q/giphy.gif" class="character-b" alt="Character B" width="250" height="250" />
+        </div>
+
+        <!-- Blood bar for B -->
+        <div class="blood">
+            <div class="blood-bar">
+                <div class="blood-bar-inner" id="blood-bar-b"></div>
+            </div>
+        </div>
 
         <!-- Game container with question and answer buttons -->
         <div id="game-container">
             <p class="question" id="question"></p>
-            <button class="answer-btn" id="answer-true">T</button>
-            <button class="answer-btn" id="answer-false">F</button>
+            <button class="answer-btn" id="answer-1">1</button>
+            <button class="answer-btn" id="answer-0">0</button>
 
             <p id="score">คะแนน: 0</p>
         </div>
+
+        <!-- Battle outcome message -->
+        <div id="battle-message" class="battle-message"></div>
     </div>
 
     <script>
         // Game logic variables
         let score = 0;
+        let healthB = 100; // Health for B
+        let correctAnswers = 0; // Count of correct answers
         const operations = {
             "OR": (a, b) => a | b,
             "AND": (a, b) => a & b,
@@ -141,21 +226,37 @@
             const a = Math.round(Math.random());
             const b = Math.round(Math.random());
             const operation = Object.keys(operations)[Math.floor(Math.random() * Object.keys(operations).length)];
-            const correctAnswer = operations[operation](a, b) === 1 ? "T" : "F";
+            const correctAnswer = operations[operation](a, b) === 1 ? "1" : "0";
 
             // Display the question
-            document.getElementById("question").innerText = `A = ${a === 1 ? "T" : "F"} และ B = ${b === 1 ? "T" : "F"}\nA ${operation} B = ?`;
+            document.getElementById("question").innerText = `A = ${a === 1 ? "1" : "0"} และ B = ${b === 1 ? "1" : "0"}\nA ${operation} B = ?`;
 
             // Set correct answer logic
-            document.getElementById("answer-true").onclick = () => checkAnswer("T", correctAnswer);
-            document.getElementById("answer-false").onclick = () => checkAnswer("F", correctAnswer);
+            document.getElementById("answer-1").onclick = () => checkAnswer("1", correctAnswer);
+            document.getElementById("answer-0").onclick = () => checkAnswer("0", correctAnswer);
         }
 
         // Function to check if the answer is correct
         function checkAnswer(userAnswer, correctAnswer) {
             if (userAnswer === correctAnswer) {
                 score++;
+                correctAnswers++;
                 alert("ถูกต้อง!");
+
+                // Move characters (A and B) towards each other and back
+                document.querySelector(".character-a").style.transform = "translateX(80px)";
+                document.querySelector(".character-b").style.transform = "translateX(-50px)";
+                
+                setTimeout(() => {
+                    document.querySelector(".character-a").style.transform = "translateX(0px)";
+                    document.querySelector(".character-b").style.transform = "translateX(0px)";
+                }, 300); // Move back to original position after 300ms
+
+                // Change blood color for B (gradually turning red after each correct answer)
+                let bloodWidth = (correctAnswers / questionsCount) * 100;
+                document.getElementById("blood-bar-b").style.width = bloodWidth + '%';
+                document.getElementById("blood-bar-b").style.backgroundColor = 'red'; // Keep it red
+
             } else {
                 alert(`ผิดแล้ว! คำตอบที่ถูกต้องคือ ${correctAnswer}`);
             }
@@ -164,6 +265,13 @@
                 generateQuestion();
             } else {
                 document.getElementById("game-container").innerHTML = `<p>คุณได้คะแนน ${score} จาก ${questionsCount}</p>`;
+                if (correctAnswers === questionsCount) {
+                    document.getElementById("battle-message").innerText = "คุณชนะแล้ว!";
+                    // Rotate B 90 degrees after winning
+                    document.querySelector(".character-b").style.transform = "rotate(0deg)";
+                } else {
+                    document.getElementById("battle-message").innerText = "คุณแพ้แล้ว!";
+                }
             }
             document.getElementById("score").innerText = `คะแนน: ${score}`;
         }
