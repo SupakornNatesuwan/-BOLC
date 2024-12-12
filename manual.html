@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternating Boxes</title>
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXYxMHM3dHdrdTd5ejRmemJlbzMwZG5lcWhqNXFiN3F4bjY2OG0yaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iRF00weMINkbfrsznN/giphy.gif');
+            background-color: #f0f4f8;
+            background-size: cover; /* ปรับภาพให้เต็มหน้าจอ */
+            background-position: center; /* จัดตำแหน่งภาพให้อยู่ตรงกลาง */
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            min-height: 100vh;
+            padding: 0 10px;
+            overflow: hidden; /* ทำให้เนื้อหาที่ยาวเกินสามารถเลื่อนขึ้นลงได้ */
+            max-height: 90vh;
+        }
+
+        /* Main container style */
+        .ui-window {
+            width: 80%;
+            max-width: 1000px;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow-y: scroll; /* ทำให้เนื้อหาที่ยาวเกินสามารถเลื่อนขึ้นลงได้ */
+            max-height: 90vh;
+        }
+
+        /* Close button style */
+        .close-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+            color: black;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: color 0.3s;
+            z-index: 10; /* ให้ปุ่ม "X" อยู่เหนือเนื้อหาทั้งหมด */
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+        /* Header and description styling */
+        h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Box container */
+        .row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Individual box styling */
+        .box {
+            width: 100%;
+            max-width: 320px;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+        }
+
+        .box:hover {
+            background-color: #0056b3; /* Darken the box color on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        .box:active {
+            transform: scale(0.98); /* Slightly shrink the box when clicked */
+        }
+
+        @media screen and (max-width: 600px) {
+            .ui-window {
+                width: 90%;
+                padding: 15px;
+            }
+            .box {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ui-window">
+        <!-- Close button to go back to the homepage -->
+        <button class="close-btn" onclick="window.location.href='index.html'">×</button>
+
+        <h1>วิธีการเล่น</h1>
+        <p>เกมนี้เป็นเกมทายผลลัพธ์ของการดำเนินการบิต (Bitwise) ระหว่างสองค่า คุณจะต้องเลือกคำตอบว่า 'ถูกต้อง' หรือ 'ผิด' สำหรับการดำเนินการบิตต่าง ๆ ที่แสดงในแต่ละรอบ</p>
+        <p>ในหน้าหลักประกอบด้วย<br>1.แบบฝึกหัด<br>2.แบบเรียนรู้</p>
+        <p><b>แบบฝึกหัด</b><br>เมื่อเลือกหัวข้อนี้ ระบบจะนำผู้เล่นเข้าสู่การต่อสู้ระหว่างอัศวิน และสัตว์ประหลาด โดยผู้เล่นรับบทเป็นอัศวิน ผู้เล่นจะต้องตอบคำถามให้ถูกทั้งหมด 5 ข้อ จึงจะสามารถเอาชนะสัตว์ประหลาด</p>
+        <p>-------------------</p>
+        <p><b>แบบเรียนรู้</b><br>เมื่อเลือกหัวข้อนี้ ระบบจะนำผู้เล่นเข้าสู่ หน้าต่างการเลือกหัวข้อการเรียนรู้ต่างๆ ซึ่งประกอบด้วย<br>1.ตรรกศาสตร์(Logic)<br>2.การดำเนินการทางบิตไวส์(Bitwise Operation)<br><br><b>๐ ตรรกศาสตร์</b> จะเป็นการสอนพื้นฐานการดำเนินการทางตรรกศาสตร์ซึ่งประกอบไปด้วย AND OR NOT<br>เมื่อกดที่ปุ่ม AND, OR หรือ NOT ตารางค่าความจริง(Truth-Table) เพื่อแสดงถึงผลลัพธ์ของการดำเนินการแต่ละตัว โดยผู้เล่นสามารถกด T หรือ F เพื่อทายผลลัพธ์ของการดำเนินการนั้นๆ และสามารถกดสุ่มตัวเลขเพื่อทำแบบทดสอบที่หลากหลาย</p>
+        <p><b>๐ การดำเนินการทางบิตไวส์</b><br>จะเป็นการสอนการดำเนินการทางบิตไวส์ซึ่งมีการต่อยอดจากพื้นฐานการดำเนินการทางตรรกศาสตร์โดยเปลี่ยนจาก T เป็น 1 และ F เป็น 0 ซึ่งประกอบไปด้วย AND OR <b>XOR</b> เมื่อกดที่ปุ่ม AND, OR หรือ XOR ตารางค่าความจริงบิตไวส์(Bitwise Truth-Table) เพื่อแสดงถึงผลลัพธ์ของการดำเนินการแต่ละตัว โดยผู้เล่นสามารถกด 1 หรือ 0 เพื่อทายผลลัพธ์ของการดำเนินการนั้นๆ และสามารถกดสุ่มตัวเลขเพื่อทำแบบทดสอบที่หลากหลาย</p>
+        <p>-------------------</p>
+        <p>หากผู้เล่นประสงค์จะกลับไปหน้าหลักสามารถกด <b>กากบาท</b> มุมขวาบนของหน้าจอ</p>
+    </div>
+</body>
+</html>
