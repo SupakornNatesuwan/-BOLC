@@ -216,14 +216,17 @@
             for (let i = 0; i <= 1; i++) {
                 for (let j = 0; j <= 1; j++) {
                     let result;
+                    let a = i === 1 ? 'T' : 'F';  // แปลงค่า i เป็น T/F
+                    let b = j === 1 ? 'T' : 'F';  // แปลงค่า j เป็น T/F
+
                     if (operation === 'AND') {
-                        result = i & j;
+                        result = i & j === 1 ? 'T' : 'F';
                     } else if (operation === 'OR') {
-                        result = i | j;
+                        result = i | j === 1 ? 'T' : 'F';
                     } else if (operation === 'NOT') {
-                        result = i === 1 ? 0 : 1;
+                        result = i === 1 ? 0 : 1 === 1 ? 'T' : 'F';
                     }
-                    tableHTML += `<tr><td>${i}</td><td>${j}</td><td>${result}</td></tr>`;
+                    tableHTML += `<tr><td>${a}</td><td>${b}</td><td>${result}</td></tr>`;
                 }
             }
 
@@ -245,8 +248,8 @@
             }
 
             // เลือกค่าของ A และ B และแสดงคำถามตามการดำเนินการที่เลือก
-            currentA = Math.round(Math.random());
-            currentB = Math.round(Math.random());
+            currentA = Math.round(Math.random()) === 1 ? 'T' : 'F';;
+            currentB = Math.round(Math.random()) === 1 ? 'T' : 'F';;
 
             let questionText = `A = ${currentA} และ B = ${currentB} \nA ${currentOperation} B = ?`;
             document.getElementById('question-text').innerText = questionText;
@@ -265,13 +268,13 @@
             // คำนวณคำตอบที่ถูกต้องตาม operation
             if (currentOperation === 'AND') {
                 correctAnswer = (currentA & currentB) === 1 ? 'T' : 'F';
-                explanation = `การดำเนินการ AND: ${currentA} ∧ ${currentB} = ${correctAnswer === 'T' ? '1' : '0'} เพราะ AND จะให้ผลเป็น TRUE (1) ก็ต่อเมื่อทั้งสองค่าคือ 1.`;
+                explanation = `การดำเนินการ AND: ${currentA} ∧ ${currentB} = ${correctAnswer === '1' ? 'T' : 'F'} เพราะ AND จะให้ผลเป็น TRUE (T) ก็ต่อเมื่อทั้งสองค่าคือ T.`;
             } else if (currentOperation === 'OR') {
                 correctAnswer = (currentA | currentB) === 1 ? 'T' : 'F';
-                explanation = `การดำเนินการ OR: ${currentA} ∨ ${currentB} = ${correctAnswer === 'T' ? '1' : '0'} เพราะ OR จะให้ผลเป็น TRUE (1) เมื่อมีค่า 1 อย่างน้อย 1 ตัว.`;
+                explanation = `การดำเนินการ OR: ${currentA} ∨ ${currentB} = ${correctAnswer === '1' ? 'T' : 'F'} เพราะ OR จะให้ผลเป็น TRUE (T) เมื่อมีค่า T อย่างน้อย 1 ตัว.`;
             } else if (currentOperation === 'NOT') {
                 correctAnswer = (currentA === 1 ? 0 : 1) === 1 ? 'T' : 'F';
-                explanation = `การดำเนินการ NOT: ~${currentA} = ${correctAnswer === 'T' ? '1' : '0'} เพราะ NOT จะเปลี่ยนค่าจาก 1 เป็น 0 และจาก 0 เป็น 1.`;
+                explanation = `การดำเนินการ NOT: ~${currentA} = ${correctAnswer === '1' ? 'T' : 'F'} เพราะ NOT จะเปลี่ยนค่าจาก T เป็น F และจาก F เป็น T.`;
             }
 
             // เช็คคำตอบของผู้ใช้
